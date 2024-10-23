@@ -1,0 +1,23 @@
+def min_breaks(n, m):
+    if n == 1 and m == 1:
+        return 0
+
+    min_cuts = float('inf')
+
+    # Проверяем разломы по горизонтали
+    for k in range(1, n):
+        cuts = 1 + min_breaks(k, m) + min_breaks(n - k, m)
+        min_cuts = min(min_cuts, cuts)
+
+    # Проверяем разломы по вертикали
+    for k in range(1, m):
+        cuts = 1 + min_breaks(n, k) + min_breaks(n, m - k)
+        min_cuts = min(min_cuts, cuts)
+
+    return min_cuts
+
+n = int(input("Введите длину прямоугольника: "))
+m = int(input("Введите ширину прямоугольника: "))
+
+result = min_breaks(n, m)
+print(f"Минимальное количество разломов: {result}")
